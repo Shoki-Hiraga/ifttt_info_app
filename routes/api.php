@@ -20,7 +20,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/ifttt/twitter', [TwitterWebhookController::class, 'handle']);
-if ($request->header('X-IFTTT-Secret') !== config('services.ifttt.secret')) {
-    abort(403);
-}
-
