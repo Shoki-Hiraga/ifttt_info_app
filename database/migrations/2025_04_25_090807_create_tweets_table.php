@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('username');
             $table->text('text');
             $table->timestamp('tweeted_at')->nullable();
-            $table->timestamps(); // created_at, updated_at
-        });    
+            $table->string('type')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
