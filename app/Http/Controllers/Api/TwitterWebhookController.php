@@ -19,7 +19,8 @@ class TwitterWebhookController extends Controller
         $request->validate([
             'username' => 'required|string',
             'text' => 'required|string',
-            'created_at' => 'nullable|string', // IFTTTは文字列形式かも
+            'created_at' => 'nullable|string',
+            'type' => 'required|string', 
         ]);
 
         // DB保存
