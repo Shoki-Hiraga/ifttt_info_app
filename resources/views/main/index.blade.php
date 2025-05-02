@@ -12,11 +12,11 @@
     <h1>投稿カテゴリ一覧</h1>
 
     <div class="point_container">
-        @foreach ($types as $key => $label)
-            <a href="{{ url($key) }}" class="point_item">
-                {{ $label }}
-            </a>
-        @endforeach
-    </div>
+    @foreach ($types as $key => $label)
+        <a href="{{ url($key) }}" class="point_item">
+            {{ $label }} ({{ $counts[$key] ?? 0 }}件)
+        </a>
+    @endforeach
+</div>
 </body>
 </html>
