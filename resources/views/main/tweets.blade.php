@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/style.css"> <!-- 任意のCSSファイルパス -->
 </head>
 <body>
-    <h1>{{ $type }}の投稿一覧</h1>
+    <h1>{{ $types[$type] ?? $type }} の投稿一覧</h1>
 
     <div class="navi">
         <a href="{{ route('top') }}" class="point_item" style="display: inline-block; width: auto; padding: 8px 16px;">
