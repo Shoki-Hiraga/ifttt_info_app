@@ -28,6 +28,8 @@ class TwitterWebhookController extends Controller
             'username' => $request->username,
             'text' => $request->text,
             'tweeted_at' => $request->created_at ? now()->parse($request->created_at) : now(),
+            'type' => $request->type,
+
         ]);
 
         return response()->json(['message' => 'Saved successfully', 'id' => $tweet->id]);
