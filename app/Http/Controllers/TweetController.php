@@ -3,55 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tweet;
+use App\Models\Type; // ← 追加
 use Illuminate\Http\Request;
 
 class TweetController extends Controller
 {
-    // 共通のtype一覧（使い回し用）
-    private $types = [
-        'seo_news' => 'SEOニュース',
-        'core_update' => 'コアアップデート',
-        'seo_tsuj' => '辻正浩 SEO',
-        'seo_watanabe' => '渡辺隆広 SEO',
-        'seo_suzuki' => '鈴木謙一 SEO',
-        'seo_kimura' => '木村賢 SEO',
-        'seo_kashiwazaki' => '柏崎剛 SEO',
-        'seo_otaku' => 'LANY SEO',
-        'seo_Mieruka' => 'Mieruka SEO',
-        'ai_shift' => 'SHIFT AI',
-        'ai_aruru' => 'SHIFあるる ChatGPT',
-        'ai_chaen' => 'チャエン デジライズ ',
-        // 必要ならここに追加
-    ];
+    // DBから取得するように共通処理化
+    private function getTypes(): array
+    {
+        return Type::all()->pluck('label', 'key')->toArray();
+    }
 
     // TOPページ
     public function top()
     {
-        $types = $this->types;
-    
+        $types = $this->getTypes();
+
         // 件数取得
         $counts = [];
         foreach ($types as $key => $label) {
             $counts[$key] = Tweet::where('type', $key)->count();
         }
-    
+
         return view('main.index', [
             'types' => $types,
             'counts' => $counts,
         ]);
     }
-    
+
     // type別一覧ページ
     public function index($type)
     {
+        $types = $this->getTypes();
+
+        if (!array_key_exists($type, $types)) {
+            abort(404, '指定されたカテゴリは存在しません');
+        }
+
         $tweets = Tweet::where('type', $type)
                     ->orderBy('tweeted_at', 'desc')
-                    ->paginate(30); // ← ここでページネーション
+                    ->paginate(30);
 
         return view('main.tweets', [
             'tweets' => $tweets,
             'type' => $type,
-            'types' => $this->types,
+            'types' => $types,
         ]);
     }
 }
