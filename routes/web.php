@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TweetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// TOPページ
+Route::get('/', [TweetController::class, 'top'])->name('top');
+
+// type別一覧ページ
+Route::get('/{type}', [TweetController::class, 'index'])->name('tweets.index');
