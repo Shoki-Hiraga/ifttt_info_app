@@ -26,12 +26,12 @@
         <form action="{{ route('types.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="key">キー（例: seo_news）:</label>
+                <label for="key">キー（例: seo_news などiftで登録した情報）:</label>
                 <input type="text" name="key" id="key" value="{{ old('key') }}" required>
             </div>
 
             <div class="form-group">
-                <label for="label">ラベル（例: SEOニュース）:</label>
+                <label for="label">ラベル（例: SEOニュースなど、ページに表示したい内容）:</label>
                 <input type="text" name="label" id="label" value="{{ old('label') }}" required>
             </div>
 
