@@ -157,6 +157,26 @@ body {
     border-color: #ddd;
 }
 
+.admin_link_container {
+    margin-bottom: 20px;
+}
+
+.admin_link {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    transition: background-color 0.2s ease;
+}
+
+.admin_link:hover {
+    background-color: #e0e0e0;
+}
+
   /* スマホ対応 */
   @media screen and (max-width: 600px) {
     h1 {
