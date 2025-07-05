@@ -28,5 +28,6 @@
             <li>まだ投稿がありません。</li>
         @endforelse
     </ul>
+    {{ $tweets->links('components.pagination') }}
 </body>
 </html>

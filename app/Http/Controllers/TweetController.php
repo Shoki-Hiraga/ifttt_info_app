@@ -17,6 +17,7 @@ class TweetController extends Controller
         'seo_kimura' => '木村賢 SEO',
         'seo_kashiwazaki' => '柏崎剛 SEO',
         'seo_otaku' => 'LANY SEO',
+        'seo_Mieruka' => 'Mieruka SEO',
         'ai_shift' => 'SHIFT AI',
         'ai_aruru' => 'SHIFあるる ChatGPT',
         'ai_chaen' => 'チャエン デジライズ ',
@@ -45,7 +46,7 @@ class TweetController extends Controller
     {
         $tweets = Tweet::where('type', $type)
                     ->orderBy('tweeted_at', 'desc')
-                    ->get();
+                    ->paginate(30); // ← ここでページネーション
 
         return view('main.tweets', [
             'tweets' => $tweets,

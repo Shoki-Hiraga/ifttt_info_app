@@ -123,6 +123,40 @@ body {
   }
   
   
+  .pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.pagination .disabled {
+    color: #999;
+    pointer-events: none;
+    border-color: #ddd;
+}
+
   /* スマホ対応 */
   @media screen and (max-width: 600px) {
     h1 {
