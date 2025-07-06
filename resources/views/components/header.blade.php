@@ -2,3 +2,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 <link rel="shortcut icon" type="image/x-icon"  href="{{ asset('/SEO.ico') }}">
+@auth
+    <p style="color: green;">ログイン中です（{{ Auth::user()->name }}）</p>
+@else
+    <p style="color: red;">ログインしていません</p>
+@endauth
