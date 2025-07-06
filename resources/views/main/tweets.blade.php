@@ -29,5 +29,6 @@
         @endforelse
     </ul>
     {{ $tweets->links('components.pagination') }}
+    @include('components.footer')
 </body>
 </html>
