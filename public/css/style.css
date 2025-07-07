@@ -123,6 +123,60 @@ body {
   }
   
   
+  .pagination {
+    margin: 30px 5px;
+    text-align: center;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.pagination .disabled {
+    color: #999;
+    pointer-events: none;
+    border-color: #ddd;
+}
+
+.admin_link_container {
+    margin-bottom: 20px;
+}
+
+.admin_link {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    transition: background-color 0.2s ease;
+}
+
+.admin_link:hover {
+    background-color: #e0e0e0;
+}
+
   /* スマホ対応 */
   @media screen and (max-width: 600px) {
     h1 {

@@ -7,46 +7,28 @@ use Illuminate\Http\Request;
 
 class TweetController extends Controller
 {
-    // 共通のtype一覧（使い回し用）
-    private $types = [
-        'seo_news' => 'SEOニュース',
-        'core_update' => 'コアアップデート',
-        'seo_tsuj' => '辻正浩 SEO',
-        'seo_watanabe' => '渡辺隆広 SEO',
-        'seo_suzuki' => '鈴木謙一 SEO',
-        'seo_kimura' => '木村賢 SEO',
-        'seo_kashiwazaki' => '柏崎剛 SEO',
-        'seo_otaku' => 'LANY SEO',
-        'seo_Mieruca' => 'Mieruca SEO',
-        'ai_shift' => 'SHIFT AI',
-        'ai_aruru' => 'SHIFあるる ChatGPT',
-        'ai_chaen' => 'チャエン デジライズ ',
-        // 必要ならここに追加
-    ];
-
-    // TOPページ
-    public function top()
+    public function handle(Request $request)
     {
-        $types = $this->types;
-    
-        // 件数取得
-        $counts = [];
-        foreach ($types as $key => $label) {
-            $counts[$key] = Tweet::where('type', $key)->count();
+        // 🔐 IFTTTのシークレットキーを検証
+        if ($request->header('X-IFTTT-Secret') !== config('services.ifttt.secret')) {
+            abort(403, 'Unauthorized');
         }
-    
-        return view('main.index', [
-            'types' => $types,
-            'counts' => $counts,
+
+        // バリデーション（必要なら）
+        $request->validate([
+            'username' => 'required|string',
+            'text' => 'required|string',
+            'created_at' => 'nullable|string',
+            'type' => 'required|string', 
         ]);
-    }
-    
-    // type別一覧ページ
-    public function index($type)
-    {
-        $tweets = Tweet::where('type', $type)
-                    ->orderBy('tweeted_at', 'desc')
-                    ->get();
+
+        // DB保存
+        $tweet = Tweet::create([
+            'username' => $request->username,
+            'text' => $request->text,
+            'tweeted_at' => $request->created_at ? now()->parse($request->created_at) : now(),
+            'type' => $request->type, // ← 追加 ✅
+        ]);
 
         return view('main.tweets', [
             'tweets' => $tweets,
