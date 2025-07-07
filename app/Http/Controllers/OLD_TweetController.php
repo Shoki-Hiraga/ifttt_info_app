@@ -1,24 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Services\TweetService;
+
 use App\Models\Tweet;
-use App\Models\Type;
+use App\Models\Type; // ← 追加
 use Illuminate\Http\Request;
 
 class TweetController extends Controller
 {
-    private $tweetService;
-
-    public function __construct(TweetService $tweetService)
+    // DBから取得するように共通処理化
+    private function getTypes(): array
     {
-        $this->tweetService = $tweetService;
+        return Type::all()->pluck('label', 'key')->toArray();
     }
 
+    // TOPページ
     public function top()
     {
-        $types = $this->tweetService->getTypes();
-        $counts = $this->tweetService->getTweetCountsByType();
+        $types = $this->getTypes();
+
+        // 件数取得
+        $counts = [];
+        foreach ($types as $key => $label) {
+            $counts[$key] = Tweet::where('type', $key)->count();
+        }
 
         return view('main.index', [
             'types' => $types,
@@ -26,9 +31,10 @@ class TweetController extends Controller
         ]);
     }
 
+    // type別一覧ページ
     public function index($type)
     {
-        $types = $this->tweetService->getTypes();
+        $types = $this->getTypes();
 
         if (!array_key_exists($type, $types)) {
             abort(404, '指定されたカテゴリは存在しません');
