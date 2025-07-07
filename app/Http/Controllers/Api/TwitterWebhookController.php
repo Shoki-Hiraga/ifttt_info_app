@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Tweet;
+use Illuminate\Http\Request;
 
-class TwitterWebhookController extends Controller
+class TweetController extends Controller
 {
     public function handle(Request $request)
     {
@@ -31,6 +30,10 @@ class TwitterWebhookController extends Controller
             'type' => $request->type, // ← 追加 ✅
         ]);
 
-        return response()->json(['message' => 'Saved successfully', 'id' => $tweet->id]);
+        return view('main.tweets', [
+            'tweets' => $tweets,
+            'type' => $type,
+            'types' => $this->types,
+        ]);
     }
 }
