@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tweet extends Model
 {
-    // 他の設定があればそのままにしてOK
+    protected $fillable = [
+        'username',
+        'text',
+        'tweeted_at',
+        'type',
+    ];
 
-    /**
-     * Type モデルとのリレーション
-     */
-    public function type()
-    {
-        return $this->belongsTo(Type::class, 'type', 'key');
-    }
     protected $casts = [
         'tweeted_at' => 'datetime',
     ];
 
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'type', 'key');
+    }
 }
